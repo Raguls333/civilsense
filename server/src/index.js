@@ -37,6 +37,18 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Root Route for Render deployment checking
+app.get('/', (req, res) => {
+  res.send(`
+    <html>
+      <body style="font-family: sans-serif; padding: 2rem; background: #040711; color: white;">
+        <h1>✅ CivilSense Backend is Live!</h1>
+        <p>The API is up and running.</p>
+      </body>
+    </html>
+  `);
+});
+
 // Mount Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
