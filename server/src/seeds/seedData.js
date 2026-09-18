@@ -1,0 +1,659 @@
+import { realDb } from '../db/realDb.js';
+
+export const seedInitialData = async () => {
+  console.log('🌱 Seeding CivilSense construction database...');
+
+  // 1. Users
+  const users = [
+    {
+      id: 'usr_owner_1',
+      name: 'Rajesh Sharma',
+      phone: '+919845012345',
+      role: 'Owner',
+      company: 'Sharma & Sons Infra Buildcon',
+      email: 'rajesh@sharmabuildcon.in',
+      preferredLanguage: 'en',
+      projectAccess: ['proj_1', 'proj_2', 'proj_3']
+    },
+    {
+      id: 'usr_sup_1',
+      name: 'Murugan Site Engg',
+      phone: '+919840156789',
+      role: 'Supervisor',
+      company: 'Sharma & Sons Infra Buildcon',
+      email: 'murugan@sharmabuildcon.in',
+      preferredLanguage: 'ta', // Tamil preferred
+      projectAccess: ['proj_1']
+    },
+    {
+      id: 'usr_acc_1',
+      name: 'Priya Venkatesh',
+      phone: '+919900234567',
+      role: 'Accountant',
+      company: 'Sharma & Sons Infra Buildcon',
+      email: 'priya.accounts@sharmabuildcon.in',
+      preferredLanguage: 'en',
+      projectAccess: ['proj_1', 'proj_2', 'proj_3']
+    },
+    {
+      id: 'usr_sub_1',
+      name: 'Karthik Bar Bending',
+      phone: '+919789012345',
+      role: 'Contractor',
+      company: 'Sri Karthik Steels & Fabrication',
+      email: 'karthik.barbend@gmail.com',
+      preferredLanguage: 'ta',
+      projectAccess: ['proj_1']
+    }
+  ];
+
+  // 2. Projects
+  const projects = [
+    {
+      id: 'proj_1',
+      name: 'Green Valley Luxury Villas (Villa #14-18)',
+      code: 'GV-VIL-14',
+      client: 'Arvind Subramaniam',
+      clientPhone: '+919841098765',
+      budget: 17500000, // ₹1.75 Crore
+      spentCost: 8450000, // ₹84.50 Lakhs
+      startDate: '2026-02-01',
+      targetDate: '2026-11-30',
+      address: 'Sy. No. 42, Varthur Main Road, Whitefield, Bengaluru - 560066',
+      supervisorId: 'usr_sup_1',
+      supervisorName: 'Murugan Site Engg',
+      status: 'In Progress',
+      completionPercentage: 48,
+      shareToken: 'gv-villa-pub-4829',
+      stages: [
+        { id: 'stg_1', name: 'Site Clearance & Excavation', progress: 100, status: 'Completed', budget: 850000, actual: 820000 },
+        { id: 'stg_2', name: 'PCC & Footing Foundation', progress: 100, status: 'Completed', budget: 2400000, actual: 2510000 },
+        { id: 'stg_3', name: 'Plinth Beam & Earth Filling', progress: 100, status: 'Completed', budget: 1650000, actual: 1580000 },
+        { id: 'stg_4', name: 'RCC Columns & Slab (G+1)', progress: 75, status: 'In Progress', budget: 4800000, actual: 3540000 },
+        { id: 'stg_5', name: 'Brickwork & AAC Block Masonry', progress: 30, status: 'In Progress', budget: 2600000, actual: 0 },
+        { id: 'stg_6', name: 'Plastering (Internal & External)', progress: 0, status: 'Pending', budget: 1800000, actual: 0 },
+        { id: 'stg_7', name: 'Electrical & Plumbing Rough-in', progress: 10, status: 'Pending', budget: 1500000, actual: 0 },
+        { id: 'stg_8', name: 'Flooring, Tiles & Painting', progress: 0, status: 'Pending', budget: 1900000, actual: 0 }
+      ]
+    },
+    {
+      id: 'proj_2',
+      name: 'Sai Shanti Commercial Plaza',
+      code: 'SS-PLZ-02',
+      client: 'K. R. Meenakshi & Brothers',
+      clientPhone: '+919444011223',
+      budget: 8500000, // ₹85.00 Lakhs
+      spentCost: 2380000, // ₹23.80 Lakhs
+      startDate: '2026-05-10',
+      targetDate: '2026-12-20',
+      address: 'Plot 88, Old Mahabalipuram Road (OMR), Perungudi, Chennai - 600096',
+      supervisorId: 'usr_sup_1',
+      supervisorName: 'Murugan Site Engg',
+      status: 'In Progress',
+      completionPercentage: 28,
+      shareToken: 'sai-shanti-pub-9912',
+      stages: [
+        { id: 'stg_201', name: 'Substructure & Piling', progress: 100, status: 'Completed', budget: 2200000, actual: 2180000 },
+        { id: 'stg_202', name: 'Plinth & Basement Retaining Wall', progress: 65, status: 'In Progress', budget: 1800000, actual: 1200000 },
+        { id: 'stg_203', name: 'Ground Floor RCC Frame', progress: 0, status: 'Pending', budget: 2400000, actual: 0 }
+      ]
+    },
+    {
+      id: 'proj_3',
+      name: 'Krishna Residency - 3BHK G+2',
+      code: 'KR-RES-03',
+      client: 'Dr. S. Ramanathan',
+      clientPhone: '+919884055678',
+      budget: 4500000, // ₹45.00 Lakhs
+      spentCost: 2950000, // ₹29.50 Lakhs
+      startDate: '2025-11-15',
+      targetDate: '2026-08-15',
+      address: '2nd Avenue, Anna Nagar West, Chennai - 600040',
+      supervisorId: 'usr_sup_1',
+      supervisorName: 'Murugan Site Engg',
+      status: 'In Progress',
+      completionPercentage: 65,
+      shareToken: 'krishna-res-pub-3310',
+      stages: [
+        { id: 'stg_301', name: 'RCC Framing Complete', progress: 100, status: 'Completed', budget: 1900000, actual: 1920000 },
+        { id: 'stg_302', name: 'Brickwork & Partitions', progress: 95, status: 'In Progress', budget: 950000, actual: 930000 },
+        { id: 'stg_303', name: 'Plastering & Primer', progress: 40, status: 'In Progress', budget: 750000, actual: 100000 }
+      ]
+    }
+  ];
+
+  // 3. Wage Categories (configured standard rates in ₹/day)
+  const wageCategories = [
+    { id: 'wc_1', name: 'Head Mason / Maistry', defaultRate: 1100, category: 'Mason' },
+    { id: 'wc_2', name: 'Brick / Stone Mason', defaultRate: 950, category: 'Mason' },
+    { id: 'wc_3', name: 'Helper (Male)', defaultRate: 600, category: 'Helper' },
+    { id: 'wc_4', name: 'Helper (Female)', defaultRate: 550, category: 'Helper' },
+    { id: 'wc_5', name: 'Bar Bender (Steel Fitter)', defaultRate: 900, category: 'Bar Bender' },
+    { id: 'wc_6', name: 'Carpenter (Centering & Shuttering)', defaultRate: 900, category: 'Carpenter' },
+    { id: 'wc_7', name: 'Concrete Vibrator Operator', defaultRate: 850, category: 'Specialist' },
+    { id: 'wc_8', name: 'Electrician (Rough-in)', defaultRate: 850, category: 'MEP' },
+    { id: 'wc_9', name: 'Plumber', defaultRate: 850, category: 'MEP' },
+    { id: 'wc_10', name: 'Painter', defaultRate: 800, category: 'Finishing' }
+  ];
+
+  // 4. Vendors & Contractors
+  const vendors = [
+    {
+      id: 'vnd_1',
+      name: 'UltraTech Cement Distributors',
+      type: 'Material Supplier',
+      category: 'Cement',
+      contactPerson: 'Suresh Kumar',
+      phone: '+919845123456',
+      gstNumber: '29AABCT1332L1Z1',
+      upiId: 'ultratech.blr@icici',
+      address: 'Industrial Area, Hoodi, Whitefield, Bengaluru',
+      balance: 142500 // Due to pay
+    },
+    {
+      id: 'vnd_2',
+      name: 'JSW Steel & TMT Yard',
+      type: 'Material Supplier',
+      category: 'Steel',
+      contactPerson: 'Harish Babu',
+      phone: '+919845234567',
+      gstNumber: '29AAACJ3245P1Z8',
+      upiId: 'jswsteels@hdfcbank',
+      address: 'Outer Ring Road, Marathahalli, Bengaluru',
+      balance: 285000 // Due to pay
+    },
+    {
+      id: 'vnd_3',
+      name: 'Cauvery M-Sand & Aggregates',
+      type: 'Material Supplier',
+      category: 'Aggregates',
+      contactPerson: 'Manjunath Gowda',
+      phone: '+919880198765',
+      gstNumber: '29BCMPG8891Q1ZP',
+      upiId: 'cauveryquarry@okhdfcbank',
+      address: 'Varthur Crusher Zone, Bengaluru',
+      balance: 48000
+    },
+    {
+      id: 'vnd_4',
+      name: 'Sri Murugan AAC Blocks & Bricks',
+      type: 'Material Supplier',
+      category: 'Bricks',
+      contactPerson: 'K. Murugesan',
+      phone: '+919840234567',
+      gstNumber: '33AAGCM4455K1Z4',
+      upiId: 'muruganblocks@sbi',
+      address: 'Poonamallee High Road, Chennai',
+      balance: 35000
+    },
+    {
+      id: 'vnd_5',
+      name: 'Karthik Bar Bending & Steel Works',
+      type: 'Sub-Contractor',
+      category: 'Labor Contractor',
+      contactPerson: 'Karthik',
+      phone: '+919789012345',
+      gstNumber: '29AAAPK9988C1ZR',
+      upiId: 'karthiksteel@paytm',
+      address: 'Kadugodi, Bengaluru',
+      balance: 65000
+    },
+    {
+      id: 'vnd_6',
+      name: 'Royal Electrical & Plumbing Solutions',
+      type: 'Sub-Contractor',
+      category: 'MEP Contractor',
+      contactPerson: 'Naveen Ali',
+      phone: '+919940122334',
+      gstNumber: '29ABMPA1122N1ZW',
+      upiId: 'royalelectrical@axl',
+      address: 'Indiranagar 100ft Road, Bengaluru',
+      balance: 95000
+    }
+  ];
+
+  // 5. Materials & Stock
+  const materials = [
+    {
+      id: 'mat_1',
+      projectId: 'proj_1',
+      name: 'UltraTech Super 53 Grade Cement',
+      category: 'Civil',
+      unit: 'Bags',
+      stockQty: 42,
+      lowStockThreshold: 50, // Low stock alert!
+      unitCost: 395,
+      lastUpdated: '2026-09-17'
+    },
+    {
+      id: 'mat_2',
+      projectId: 'proj_1',
+      name: 'JSW Neosteel TMT 12mm Fe550D',
+      category: 'Civil',
+      unit: 'Tons',
+      stockQty: 3.8,
+      lowStockThreshold: 2.0,
+      unitCost: 64500,
+      lastUpdated: '2026-09-16'
+    },
+    {
+      id: 'mat_3',
+      projectId: 'proj_1',
+      name: 'JSW Neosteel TMT 16mm Fe550D',
+      category: 'Civil',
+      unit: 'Tons',
+      stockQty: 1.2,
+      lowStockThreshold: 2.0, // Low stock alert!
+      unitCost: 64500,
+      lastUpdated: '2026-09-16'
+    },
+    {
+      id: 'mat_4',
+      projectId: 'proj_1',
+      name: 'Manufactured Sand (M-Sand Zone II)',
+      category: 'Civil',
+      unit: 'CFT',
+      stockQty: 420,
+      lowStockThreshold: 300,
+      unitCost: 48,
+      lastUpdated: '2026-09-17'
+    },
+    {
+      id: 'mat_5',
+      projectId: 'proj_1',
+      name: '20mm Blue Metal Granite Aggregate',
+      category: 'Civil',
+      unit: 'CFT',
+      stockQty: 580,
+      lowStockThreshold: 300,
+      unitCost: 42,
+      lastUpdated: '2026-09-17'
+    },
+    {
+      id: 'mat_6',
+      projectId: 'proj_1',
+      name: 'AAC Blocks 600x200x150mm',
+      category: 'Civil',
+      unit: 'Pieces',
+      stockQty: 85,
+      lowStockThreshold: 200, // Low stock alert!
+      unitCost: 68,
+      lastUpdated: '2026-09-15'
+    }
+  ];
+
+  // 6. Material Purchases
+  const materialPurchases = [
+    {
+      id: 'mp_1',
+      projectId: 'proj_1',
+      materialId: 'mat_1',
+      materialName: 'UltraTech Super 53 Grade Cement',
+      vendorId: 'vnd_1',
+      vendorName: 'UltraTech Cement Distributors',
+      qty: 250,
+      unit: 'Bags',
+      unitPrice: 395,
+      totalCost: 98750,
+      invoiceNo: 'UTC/BLR/2026/0912',
+      date: '2026-09-10',
+      category: 'Civil',
+      paymentStatus: 'Partial'
+    },
+    {
+      id: 'mp_2',
+      projectId: 'proj_1',
+      materialId: 'mat_2',
+      materialName: 'JSW Neosteel TMT 12mm Fe550D',
+      vendorId: 'vnd_2',
+      vendorName: 'JSW Steel & TMT Yard',
+      qty: 4.5,
+      unit: 'Tons',
+      unitPrice: 64500,
+      totalCost: 290250,
+      invoiceNo: 'JSW/BLR/8841',
+      date: '2026-09-12',
+      category: 'Civil',
+      paymentStatus: 'Pending'
+    },
+    {
+      id: 'mp_3',
+      projectId: 'proj_1',
+      materialId: 'mat_4',
+      materialName: 'Manufactured Sand (M-Sand Zone II)',
+      vendorId: 'vnd_3',
+      vendorName: 'Cauvery M-Sand & Aggregates',
+      qty: 600,
+      unit: 'CFT',
+      unitPrice: 48,
+      totalCost: 28800,
+      invoiceNo: 'CAU/26/304',
+      date: '2026-09-14',
+      category: 'Civil',
+      paymentStatus: 'Paid'
+    }
+  ];
+
+  // 7. Attendances (Recent days with GPS & photo verification)
+  const attendances = [
+    {
+      id: 'att_1',
+      projectId: 'proj_1',
+      projectName: 'Green Valley Luxury Villas',
+      contractorId: 'vnd_5',
+      contractorName: 'Karthik Bar Bending & Steel Works',
+      date: '2026-09-17',
+      shift: 'Morning',
+      supervisorId: 'usr_sup_1',
+      supervisorName: 'Murugan Site Engg',
+      entries: [
+        { categoryId: 'wc_1', category: 'Head Mason / Maistry', count: 1, rate: 1100, subtotal: 1100 },
+        { categoryId: 'wc_2', category: 'Brick / Stone Mason', count: 5, rate: 950, subtotal: 4750 },
+        { categoryId: 'wc_3', category: 'Helper (Male)', count: 8, rate: 600, subtotal: 4800 },
+        { categoryId: 'wc_4', category: 'Helper (Female)', count: 4, rate: 550, subtotal: 2200 },
+        { categoryId: 'wc_5', category: 'Bar Bender (Steel Fitter)', count: 4, rate: 900, subtotal: 3600 },
+        { categoryId: 'wc_6', category: 'Carpenter (Centering & Shuttering)', count: 3, rate: 900, subtotal: 2700 }
+      ],
+      totalWorkers: 25,
+      totalWage: 19150,
+      gps: {
+        lat: 12.9716,
+        lng: 77.7499,
+        accuracy: 8.5,
+        address: 'Whitefield Site Pillar 4B, Bengaluru'
+      },
+      photoUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=400&q=80',
+      syncedOffline: false,
+      notes: 'Columns rebar tying for Villa 16 and slab shuttering checking.'
+    },
+    {
+      id: 'att_2',
+      projectId: 'proj_1',
+      projectName: 'Green Valley Luxury Villas',
+      contractorId: 'direct',
+      contractorName: 'Direct Site Workers',
+      date: '2026-09-16',
+      shift: 'Morning',
+      supervisorId: 'usr_sup_1',
+      supervisorName: 'Murugan Site Engg',
+      entries: [
+        { categoryId: 'wc_2', category: 'Brick / Stone Mason', count: 4, rate: 950, subtotal: 3800 },
+        { categoryId: 'wc_3', category: 'Helper (Male)', count: 6, rate: 600, subtotal: 3600 },
+        { categoryId: 'wc_4', category: 'Helper (Female)', count: 4, rate: 550, subtotal: 2200 },
+        { categoryId: 'wc_5', category: 'Bar Bender (Steel Fitter)', count: 3, rate: 900, subtotal: 2700 }
+      ],
+      totalWorkers: 17,
+      totalWage: 12300,
+      gps: {
+        lat: 12.9718,
+        lng: 77.7501,
+        accuracy: 9.1,
+        address: 'Whitefield Site Entrance, Bengaluru'
+      },
+      photoUrl: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=400&q=80',
+      syncedOffline: false,
+      notes: 'Footing concrete curing & ground floor electrical pipe routing.'
+    }
+  ];
+
+  // 8. Vendor Ledger Entries
+  const ledgerEntries = [
+    {
+      id: 'led_1',
+      partyId: 'vnd_1',
+      partyName: 'UltraTech Cement Distributors',
+      projectId: 'proj_1',
+      date: '2026-09-01',
+      description: 'Opening Balance (August supplies)',
+      debit: 0,
+      credit: 93750,
+      balanceAfter: 93750,
+      type: 'Invoice',
+      paymentMode: 'Credit',
+      reference: 'UTC/INV/AUG-88'
+    },
+    {
+      id: 'led_2',
+      partyId: 'vnd_1',
+      partyName: 'UltraTech Cement Distributors',
+      projectId: 'proj_1',
+      date: '2026-09-05',
+      description: 'RTGS Transfer via HDFC Bank',
+      debit: 50000,
+      credit: 0,
+      balanceAfter: 43750,
+      type: 'Payment',
+      paymentMode: 'Bank RTGS',
+      reference: 'HDFC-RTGS-0905441'
+    },
+    {
+      id: 'led_3',
+      partyId: 'vnd_1',
+      partyName: 'UltraTech Cement Distributors',
+      projectId: 'proj_1',
+      date: '2026-09-10',
+      description: 'Supply of 250 Bags 53 Grade Cement',
+      debit: 0,
+      credit: 98750,
+      balanceAfter: 142500,
+      type: 'Invoice',
+      paymentMode: 'Credit',
+      reference: 'UTC/BLR/2026/0912'
+    },
+    {
+      id: 'led_4',
+      partyId: 'vnd_2',
+      partyName: 'JSW Steel & TMT Yard',
+      projectId: 'proj_1',
+      date: '2026-09-02',
+      description: 'Supply of TMT Fe550D Steel 6.0 Tons',
+      debit: 0,
+      credit: 387000,
+      balanceAfter: 387000,
+      type: 'Invoice',
+      paymentMode: 'Credit',
+      reference: 'JSW-STEEL-0902'
+    },
+    {
+      id: 'led_5',
+      partyId: 'vnd_2',
+      partyName: 'JSW Steel & TMT Yard',
+      projectId: 'proj_1',
+      date: '2026-09-08',
+      description: 'Cheque Clearance Chq #409122',
+      debit: 102000,
+      credit: 0,
+      balanceAfter: 285000,
+      type: 'Payment',
+      paymentMode: 'Cheque',
+      reference: 'CHQ-409122'
+    }
+  ];
+
+  // 9. Daily Progress Reports (DPR)
+  const dprs = [
+    {
+      id: 'dpr_1',
+      projectId: 'proj_1',
+      date: '2026-09-17',
+      weather: 'Sunny / 30°C',
+      stageId: 'stg_4',
+      stageName: 'RCC Columns & Slab (G+1)',
+      supervisorName: 'Murugan Site Engg',
+      workersCount: 25,
+      workCompleted: '1. Completed column shuttering for C12 to C18.\n2. Bar benders completed beam reinforcement tying.\n3. Plumber laid 4-inch drainage sleeves in floor slab.',
+      delaysOrBlockers: 'Slight delay of 1 hour in morning due to electricity line trip. Restored by 10:30 AM.',
+      photos: [
+        {
+          url: 'https://images.unsplash.com/photo-1541888946425-d0fbb186156f?auto=format&fit=crop&w=600&q=80',
+          caption: 'Villa 16 1st Floor Slab Beam Reinforcement',
+          timestamp: '2026-09-17 11:45 AM',
+          gps: '12.9716° N, 77.7499° E'
+        },
+        {
+          url: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80',
+          caption: 'Column C14 Alignment Verification',
+          timestamp: '2026-09-17 03:15 PM',
+          gps: '12.9717° N, 77.7500° E'
+        }
+      ],
+      issuesCount: 1,
+      status: 'Submitted'
+    }
+  ];
+
+  // 10. Site Issues / Defects
+  const issues = [
+    {
+      id: 'iss_1',
+      projectId: 'proj_1',
+      title: 'Honeycombing noticed in Column C9 base',
+      description: 'Minor honeycombing after de-shuttering near foundation joint. Needs non-shrink grout (Fosroc Renderoc) treatment before plastering.',
+      category: 'Civil / Concrete',
+      priority: 'High',
+      status: 'Open',
+      assignedTo: 'Murugan Site Engg',
+      dueDate: '2026-09-19',
+      photoUrl: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&w=500&q=80',
+      createdAt: '2026-09-17'
+    },
+    {
+      id: 'iss_2',
+      projectId: 'proj_1',
+      title: 'Water supply tanker delay',
+      description: 'Curing tanker arrived 3 hours late. Curing done with reserve sump water.',
+      category: 'Site Logistics',
+      priority: 'Medium',
+      status: 'Resolved',
+      assignedTo: 'Murugan Site Engg',
+      dueDate: '2026-09-16',
+      resolvedDate: '2026-09-16',
+      photoUrl: '',
+      createdAt: '2026-09-16'
+    }
+  ];
+
+  // 11. Petty Cash Entries
+  const pettyCash = [
+    {
+      id: 'pc_1',
+      projectId: 'proj_1',
+      date: '2026-09-17',
+      type: 'OUT',
+      amount: 1450,
+      category: 'Labour Welfare',
+      note: 'Evening tea, snacks, and mineral water can for 25 workers',
+      loggedBy: 'Murugan Site Engg',
+      balanceAfter: 18550
+    },
+    {
+      id: 'pc_2',
+      projectId: 'proj_1',
+      date: '2026-09-16',
+      type: 'OUT',
+      amount: 2500,
+      category: 'Machinery Rental / Fuel',
+      note: 'Diesel 25L for needle vibrator and mixer machine',
+      loggedBy: 'Murugan Site Engg',
+      balanceAfter: 20000
+    },
+    {
+      id: 'pc_3',
+      projectId: 'proj_1',
+      date: '2026-09-15',
+      type: 'IN',
+      amount: 20000,
+      category: 'Cash Infusion',
+      note: 'Petty cash top-up given by Rajesh Sharma (Owner)',
+      loggedBy: 'Priya Venkatesh',
+      balanceAfter: 22500
+    }
+  ];
+
+  // 12. Running Account (RA) Bills
+  const raBills = [
+    {
+      id: 'ra_1',
+      billNo: 'RA-BILL-01',
+      projectId: 'proj_1',
+      projectName: 'Green Valley Luxury Villas',
+      clientName: 'Arvind Subramaniam',
+      clientAddress: 'Plot 41, Indiranagar, Bengaluru',
+      date: '2026-07-20',
+      periodStart: '2026-06-01',
+      periodEnd: '2026-07-15',
+      items: [
+        { description: 'Site clearance and earthwork excavation', totalScope: 850000, percentClaimed: 100, amount: 850000 },
+        { description: 'PCC and Footing Foundation casting', totalScope: 2400000, percentClaimed: 100, amount: 2400000 },
+        { description: 'Plinth Beam and Backfilling', totalScope: 1650000, percentClaimed: 100, amount: 1650000 }
+      ],
+      subtotal: 4900000,
+      retentionPercent: 5,
+      retentionAmount: 245000,
+      taxableAmount: 4655000,
+      cgstPercent: 9,
+      cgstAmount: 418950,
+      sgstPercent: 9,
+      sgstAmount: 418950,
+      tdsPercent: 2,
+      tdsAmount: 93100,
+      previousBillsPaid: 0,
+      netPayable: 5399800,
+      status: 'Paid',
+      paidDate: '2026-07-28'
+    },
+    {
+      id: 'ra_2',
+      billNo: 'RA-BILL-02',
+      projectId: 'proj_1',
+      projectName: 'Green Valley Luxury Villas',
+      clientName: 'Arvind Subramaniam',
+      clientAddress: 'Plot 41, Indiranagar, Bengaluru',
+      date: '2026-09-10',
+      periodStart: '2026-07-16',
+      periodEnd: '2026-09-05',
+      items: [
+        { description: 'Ground Floor & First Floor RCC Columns and Slab', totalScope: 4800000, percentClaimed: 70, amount: 3360000 },
+        { description: 'AAC Block Masonry Work (Ground floor initial)', totalScope: 2600000, percentClaimed: 25, amount: 650000 }
+      ],
+      subtotal: 4010000,
+      retentionPercent: 5,
+      retentionAmount: 200500,
+      taxableAmount: 3809500,
+      cgstPercent: 9,
+      cgstAmount: 342855,
+      sgstPercent: 9,
+      sgstAmount: 342855,
+      tdsPercent: 2,
+      tdsAmount: 76190,
+      previousBillsPaid: 5399800,
+      netPayable: 4419020,
+      status: 'Submitted',
+      paidDate: null
+    }
+  ];
+
+  // Ensure database initialized
+  await realDb.init();
+
+  // Save into SQLite real database
+  await realDb.getCollection('users').replaceData(users);
+  await realDb.getCollection('projects').replaceData(projects);
+  await realDb.getCollection('wageCategories').replaceData(wageCategories);
+  await realDb.getCollection('vendors').replaceData(vendors);
+  await realDb.getCollection('materials').replaceData(materials);
+  await realDb.getCollection('materialPurchases').replaceData(materialPurchases);
+  await realDb.getCollection('attendances').replaceData(attendances);
+  await realDb.getCollection('ledgerEntries').replaceData(ledgerEntries);
+  await realDb.getCollection('dprs').replaceData(dprs);
+  await realDb.getCollection('issues').replaceData(issues);
+  await realDb.getCollection('pettyCash').replaceData(pettyCash);
+  await realDb.getCollection('raBills').replaceData(raBills);
+
+  console.log('✅ CivilSense SQLite database initialized with rich Indian contractor data!');
+};
+
+// If run directly
+if (process.argv[1]?.endsWith('seedData.js')) {
+  seedInitialData().then(() => process.exit(0));
+}

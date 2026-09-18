@@ -1,0 +1,42 @@
+{
+  "short_name": "CivilSense",
+  "name": "CivilSense OS — Construction Field Operations",
+  "description": "High-Tech Mobile Construction OS for Contractors, Engineers & Builders",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#070b14",
+  "theme_color": "#0b1324",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "⚡ Mark Attendance",
+      "short_name": "Attendance",
+      "description": "Biometric & GPS site attendance punch-in",
+      "url": "/?tab=attendance",
+      "icons": [{ "src": "/vite.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "📋 New DPR Note",
+      "short_name": "DPR",
+      "description": "Daily site progress & blocker log",
+      "url": "/?tab=dpr",
+      "icons": [{ "src": "/vite.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "💵 Petty Cash Log",
+      "short_name": "Petty Cash",
+      "description": "Log site diesel, tea & urgent cash expenses",
+      "url": "/?tab=petty-cash",
+      "icons": [{ "src": "/vite.svg", "sizes": "192x192" }]
+    }
+  ]
+}
